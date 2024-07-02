@@ -8,6 +8,7 @@
 
 ## 1.1. Business Problem
 The company sells digital education products and has a platform with training, short and long courses, tutoring, and free content. The free content works as a hook to show the clients the metodology and the quality of the material. The company has B2B and B2C products.
+
 The company has many iniciatives for B2B clients and new B2C clients, but once the clients are in the company, they don't have any iniciatives for them.
 
 They believe that once clients are in the company, they don't purchase more products, but they are not certain about it.
@@ -33,10 +34,9 @@ Considering this point, one iniciative was to segment the clients into groups, o
 # 2. RFM MODEL
 
 **RFM** or **RFV** is a common technique used in Marketing to segment customer data by plotting customers into a three-dimensional space using three metrics:
-
-    - Recency: a mensure of how recently a customer last purchased.
-    - Frequency: how often they purchase within a given time period.
-    - Monetary (Value): the amount they spend within a given time period.
+ - Recency: a mensure of how recently a customer last purchased.
+ - Frequency: how often they purchase within a given time period.
+ - Monetary (Value): the amount they spend within a given time period.
 
 Using these parameters, customers are classified into nine categories. This customer segmentation helps in the decision-making process for targeted marketing strategies and customer success, offering discounts and promotions, different kinds of products, etc.
 
@@ -45,6 +45,7 @@ For this project, I dediced to use a clustering technique to classied into group
 # 3. CLUSTERING
 
 Clustering is a type of unsupervised learning technique in data analysis to group similar data points together based on their caracteristics. In the conxtext of customer segmentation, clustering algorithms analyze customer data and identify natural groupings or clusters of customers who share similar behaviors and attributes. Unlike predefined segmentation methods, clustering does not require prior knowledge of the categories and can reveal unexpected patterns and relationships within the data.
+
 The main ideia of k-means algotithm is to choose *k* random points as centroids, label the instances, calculate a reference metric, then update the centroid points, label the instances again and recalculate the reference metric, continuing this process until the centroids stop moving.
 
 ## 3.1. The silhoutte score
@@ -53,14 +54,28 @@ A more precise metric used to define the best value for the number of the cluste
 $Silhoutte\_Score = \frac{(b-a)}{max(a,b)}$
 
 Where:
-    - *a* is the mean distance to the other instance in the same cluster.
-    - *b* is the mean nearest-cluster distance.
+
+- *a* is the mean distance to the other instance in the same cluster.
+- *b* is the mean nearest-cluster distance.
 
 The sillhoutte score can very between -1 and +1. A value close to +1 means that the instance is well with its own cluster and far from other cluster, while a coefficient close to 0 means that it is near boundary; a value close to -1 means that the instance may have been assigned the wrong cluster.
 
 
 # 4. RESULTS
-
+## 4.1. EDA
+Main insights:
+- Price variable issues: 
+      - some values in the CRM have negative prices, which is an anomaly.
+      - Some prices exceed the highest known product price, indicating possible data entry errors or inconsistencies.
+![VAR PRICE](https://github.com/mateusengq/RFV_PYTHON/blob/main/GRAPH/PRICES_V1.png)
+- 63% of the records are clients who made their last purchase before 2018 and have not bought anything since then. These records were excluded from the clustering analysis to focus on more relevant data.
+- Considering only the valid records, 57,57% of the clients have not made any purchase.
+      - It could be beneficial to analyze these inactive clients to understand the reasons behind their lack of purchases. Beyond the peak, there is a relatively flat distribution of clients over the remaining period, suggesting a steady rate of recent client activity.
+![VAR PRICE AFTER AJUST](https://github.com/mateusengq/RFV_PYTHON/blob/main/GRAPH/VAR_PRICE.png)
+- The recency graph shows a peak in the lower number,  indicating a significant number of clients have made recent purchases. but there is a kind of flat amount of clients during the period.
+- Clients who spent more money on average per purchase tend to have fewer total purchases.
+![VAR PRICE](https://github.com/mateusengq/RFV_PYTHON/blob/main/GRAPH/VAR_TOTAL_PURCHASE.png)
+- 83% of the clients purchased only one product.
 
 
 # 5. FURTHER STEPS
